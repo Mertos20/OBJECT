@@ -1,0 +1,5 @@
+id,email,address,created_at,client_type,company_name,contact_first_name,contact_last_name,notes,phone
+3,irem@gmail.com,NULL,2025-10-21 20:33:41.348329,INDIVIDUAL,,İrem,Türk,,
+4,mertbekta2@gmail.com,"İçerenköy Mahallesi, Sarı kanarya Sokak, No:26/3",2025-10-21 21:46:38.552072,CORPORATE,LOOP,Mert Osman,Bektaş,,05538210778
+5,mertbekta@gmail.com,NULL,2025-10-21 22:01:40.122844,INDIVIDUAL,,Mert Osman,Bektaş,,05538210778
+6,mertbektas@gmail.com,"İçerenköy Mahallesi, Sarı kanarya Sokak, No:26/3",2025-10-21 22:04:05.088405,INDIVIDUAL,,Mert Osman,Bektaş,,05538210778
