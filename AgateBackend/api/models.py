@@ -229,6 +229,23 @@ class Advert(models.Model):
         blank=True, null=True, verbose_name="Actual End Date"
     )
 
+    # AI Generated Banner/Poster
+    banner_image_url = models.URLField(
+        blank=True, null=True, verbose_name="Banner Image URL"
+    )
+    banner_image_base64 = models.TextField(
+        blank=True, null=True, verbose_name="Banner Image Base64"
+    )
+    banner_html = models.TextField(
+        blank=True, null=True, verbose_name="Banner HTML Fallback"
+    )
+    banner_prompt = models.TextField(
+        blank=True, null=True, verbose_name="AI Prompt Used"
+    )
+    banner_style = models.CharField(
+        max_length=50, blank=True, null=True, verbose_name="Banner Style"
+    )
+
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

@@ -37,11 +37,15 @@ class CampaignStaffAssignmentSerializer(serializers.ModelSerializer):
 
 
 class AdvertSerializer(serializers.ModelSerializer):
+    campaign_title = serializers.CharField(source='campaign.title', read_only=True)
+    client_name = serializers.CharField(source='campaign.client.__str__', read_only=True)
+
     class Meta:
         model = Advert
-        fields = ['id', 'campaign', 'title', 'description', 'status',
+        fields = ['id', 'campaign', 'campaign_title', 'client_name', 'title', 'description', 'status',
                   'production_progress', 'scheduled_start_date', 'scheduled_end_date',
-                  'actual_start_date', 'actual_end_date', 'created_at']
+                  'actual_start_date', 'actual_end_date', 'banner_image_url',
+                  'banner_image_base64', 'banner_html', 'banner_prompt', 'banner_style', 'created_at']
 
 
 class CampaignSerializer(serializers.ModelSerializer):

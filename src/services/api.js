@@ -18,23 +18,6 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// Response interceptor - 401 hatası geldiğinde logout yap
-api.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      // Token geçersiz veya süresi dolmuş
-      localStorage.removeItem('access_token');
-      localStorage.removeItem('user');
-      // Sayfayı yenile veya login sayfasına yönlendir
-      if (window.location.pathname !== '/login') {
-        window.location.href = '/login';
-      }
-    }
-    return Promise.reject(error);
-  }
-);
-
 // Token istekleri için özel axios instance (API base path olmadan)
 const authApi = axios.create({
   baseURL: 'http://localhost:8000',
@@ -61,6 +44,11 @@ export const campaignAPI = {
   update: (id, data) => api.put(`/campaigns/${id}/`, data),
   delete: (id) => api.delete(`/campaigns/${id}/`),
   assignStaff: (id, staffData) => api.post(`/campaigns/${id}/assign_staff/`, staffData),
+  // Banner API
+  generateBanner: (id, style = 'modern') => api.post(`/campaigns/${id}/generate_banner/`, { style }),
+  generateBannerVariations: (id, count = 3) => api.post(`/campaigns/${id}/generate_banner_variations/`, { count }),
+  generateSocialBanners: (id) => api.post(`/campaigns/${id}/generate_social_banners/`),
+  getBanner: (id) => api.get(`/campaigns/${id}/get_banner/`),
 };
 
 // Staff
@@ -69,7 +57,7 @@ export const staffAPI = {
   getById: (id) => api.get(`/staff/${id}/`),
   create: (data) => api.post('/staff/', data),
   update: (id, data) => api.put(`/staff/${id}/`, data),
-  delete: (id) => api.delete(`/staff/${id}/`),
+  delete: (id) => api.delete(`/staff/{id}/`),
 };
 
 // Staff Grades
@@ -97,6 +85,10 @@ export const advertAPI = {
   create: (data) => api.post('/adverts/', data),
   update: (id, data) => api.put(`/adverts/${id}/`, data),
   delete: (id) => api.delete(`/adverts/${id}/`),
+  // Banner API
+  generateBanner: (id, style = 'modern') => api.post(`/adverts/${id}/generate_banner/`, { style }),
+  regenerateBanner: (id, style = 'modern') => api.post(`/adverts/${id}/regenerate_banner/`, { style }),
+  getBanner: (id) => api.get(`/adverts/${id}/get_banner/`),
 };
 
 // Campaign Staff Assignments

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { advertAPI } from '../services/api';
 import AdvertList from '../components/Adverts/AdvertList';
 import AdvertForm from '../components/Adverts/AdvertForm';
+import AdvertBannerGenerator from '../components/Adverts/AdvertBannerGenerator';
 import FormModal from '../components/FormModal';
 
 export default function AdvertsPage() {
@@ -9,6 +10,7 @@ export default function AdvertsPage() {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editingAdvert, setEditingAdvert] = useState(null);
+  const [bannerAdvert, setBannerAdvert] = useState(null);
 
   const fetchAdverts = async () => {
     try {
@@ -53,6 +55,17 @@ export default function AdvertsPage() {
     fetchAdverts();
   };
 
+  const handleGenerateBanner = (advert) => {
+    setBannerAdvert(advert);
+  };
+
+  const handleBannerSuccess = (updatedAdvert) => {
+    // Reklam listesini güncelle
+    setAdverts(adverts.map(a => 
+      a.id === updatedAdvert.id ? updatedAdvert : a
+    ));
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-6">
@@ -78,6 +91,19 @@ export default function AdvertsPage() {
         </FormModal>
       )}
 
+      {bannerAdvert && (
+        <FormModal
+          title={`🎨 Reklam Afişi Oluştur - ${bannerAdvert.title}`}
+          onClose={() => setBannerAdvert(null)}
+        >
+          <AdvertBannerGenerator
+            advert={bannerAdvert}
+            onClose={() => setBannerAdvert(null)}
+            onSuccess={handleBannerSuccess}
+          />
+        </FormModal>
+      )}
+
       {loading ? (
         <div className="text-center py-12">
           <p className="text-gray-600">Loading adverts...</p>
@@ -87,6 +113,7 @@ export default function AdvertsPage() {
           adverts={adverts}
           onEdit={handleEdit}
           onDelete={handleDelete}
+          onGenerateBanner={handleGenerateBanner}
         />
       )}
     </div>

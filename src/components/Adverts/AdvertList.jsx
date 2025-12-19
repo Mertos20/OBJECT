@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function AdvertList({ adverts, onEdit, onDelete }) {
+export default function AdvertList({ adverts, onEdit, onDelete, onGenerateBanner }) {
   const getStatusColor = (status) => {
     switch (status) {
       case 'PLANNING':
@@ -54,12 +54,15 @@ export default function AdvertList({ adverts, onEdit, onDelete }) {
             adverts.map((advert) => (
               <tr key={advert.id} className="hover:bg-gray-50">
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm font-medium text-gray-900">{advert.title}</div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-gray-900">{advert.title}</span>
+                    {(advert.banner_html || advert.banner_image_base64) && (
+                      <span className="text-green-600" title="Afiş mevcut">🖼️</span>
+                    )}
+                  </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  {typeof advert.campaign === 'object' && advert.campaign
-                    ? advert.campaign.title
-                    : `Campaign #${advert.campaign}`}
+                  {advert.campaign_title || `Campaign #${advert.campaign}`}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusColor(advert.status)}`}>
@@ -81,6 +84,13 @@ export default function AdvertList({ adverts, onEdit, onDelete }) {
                   {new Date(advert.scheduled_end_date).toLocaleDateString()}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                  <button
+                    onClick={() => onGenerateBanner(advert)}
+                    className="text-purple-600 hover:text-purple-900"
+                    title="Afiş Oluştur"
+                  >
+                    🎨 Afiş
+                  </button>
                   <button
                     onClick={() => onEdit(advert)}
                     className="text-blue-600 hover:text-blue-900"

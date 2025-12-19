@@ -18,7 +18,7 @@ function CampaignList({ campaigns, onEdit, onDelete }) {
             <th className="px-6 py-3 text-left text-gray-700 font-semibold">Client</th>
             <th className="px-6 py-3 text-left text-gray-700 font-semibold">Status</th>
             <th className="px-6 py-3 text-left text-gray-700 font-semibold">Progress</th>
-            <th className="px-6 py-3 text-left text-gray-700 font-semibold">Start Date</th>
+            <th className="px-6 py-3 text-left text-gray-700 font-semibold">Budget</th>
             <th className="px-6 py-3 text-left text-gray-700 font-semibold">Actions</th>
           </tr>
         </thead>
@@ -47,7 +47,9 @@ function CampaignList({ campaigns, onEdit, onDelete }) {
                   <span className="text-sm font-semibold">{campaign.completion_percentage}%</span>
                 </div>
               </td>
-              <td className="px-6 py-4">{new Date(campaign.planned_start_date).toLocaleDateString()}</td>
+              <td className="px-6 py-4 text-sm">
+                ${campaign.budget?.toLocaleString() || '0'}
+              </td>
               <td className="px-6 py-4 flex gap-2">
                 <button
                   onClick={() => onEdit(campaign)}
