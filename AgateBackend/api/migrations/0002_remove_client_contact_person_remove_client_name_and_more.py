@@ -6,46 +6,58 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('api', '0001_initial'),
+        ("api", "0001_initial"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='client',
-            name='contact_person',
+            model_name="client",
+            name="contact_person",
         ),
         migrations.RemoveField(
-            model_name='client',
-            name='name',
+            model_name="client",
+            name="name",
         ),
         migrations.AddField(
-            model_name='client',
-            name='client_type',
-            field=models.CharField(choices=[('CORPORATE', 'Corporate'), ('INDIVIDUAL', 'Individual')], default='CORPORATE', max_length=10),
+            model_name="client",
+            name="client_type",
+            field=models.CharField(
+                choices=[("CORPORATE", "Corporate"), ("INDIVIDUAL", "Individual")],
+                default="CORPORATE",
+                max_length=10,
+            ),
         ),
         migrations.AddField(
-            model_name='client',
-            name='company_name',
-            field=models.CharField(blank=True, max_length=200, null=True, verbose_name='Company Name'),
+            model_name="client",
+            name="company_name",
+            field=models.CharField(
+                blank=True, max_length=200, null=True, verbose_name="Company Name"
+            ),
         ),
         migrations.AddField(
-            model_name='client',
-            name='contact_first_name',
-            field=models.CharField(default='', max_length=100, verbose_name='Contact First Name'),
+            model_name="client",
+            name="contact_first_name",
+            field=models.CharField(
+                default="", max_length=100, verbose_name="Contact First Name"
+            ),
         ),
         migrations.AddField(
-            model_name='client',
-            name='contact_last_name',
-            field=models.CharField(default='', max_length=100, verbose_name='Contact Last Name'),
+            model_name="client",
+            name="contact_last_name",
+            field=models.CharField(
+                default="", max_length=100, verbose_name="Contact Last Name"
+            ),
         ),
         migrations.AddField(
-            model_name='client',
-            name='notes',
-            field=models.TextField(blank=True, null=True, verbose_name='Notes'),
+            model_name="client",
+            name="notes",
+            field=models.TextField(blank=True, null=True, verbose_name="Notes"),
         ),
         migrations.AddField(
-            model_name='client',
-            name='phone',
-            field=models.CharField(blank=True, max_length=20, null=True, verbose_name='Phone Number'),
+            model_name="client",
+            name="phone",
+            field=models.CharField(
+                blank=True, max_length=20, null=True, verbose_name="Phone Number"
+            ),
         ),
     ]

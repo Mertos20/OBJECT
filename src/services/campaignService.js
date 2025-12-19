@@ -1,15 +1,33 @@
-// Sahte kampanya verileri
-const mockCampaigns = [
-  { id: 1, title: 'Yaz Sezonu İndirimi', client: 'Moda A.Ş.', budget: 50000, status: 'Aktif' },
-  { id: 2, title: 'Yeni Ürün Lansmanı', client: 'Teknoloji Ltd.', budget: 120000, status: 'Planlanıyor' },
-  { id: 3, title: 'Okula Dönüş Fırsatları', client: 'Kitap Dünyası', budget: 75000, status: 'Tamamlandı' },
-];
+// API istekleri api.js dosyasındaki campaignAPI kullanılmaktadır
+// Bu dosya campaign ile ilgili ek servis fonksiyonları için kullanılabilir
 
-// Backend API'sini taklit eden bir fonksiyon
-export const getCampaigns = () => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(mockCampaigns);
-    }, 500); // 0.5 saniyelik bir gecikme ekleyerek ağ isteğini simüle ediyoruz
+// Kampanya filtreleme fonksiyonu
+export const filterCampaigns = (campaigns, filters) => {
+  return campaigns.filter(campaign => {
+    if (filters.status && campaign.status !== filters.status) return false;
+    if (filters.clientId && campaign.client !== filters.clientId) return false;
+    if (filters.searchText && !campaign.title.toLowerCase().includes(filters.searchText.toLowerCase())) return false;
+    return true;
   });
+};
+
+// Kampanya durumuna göre renk döndürme
+export const getCampaignStatusColor = (status) => {
+  const colors = {
+    'PLANNING': 'bg-gray-100 text-gray-700',
+    'ACTIVE': 'bg-green-100 text-green-700',
+    'COMPLETED': 'bg-blue-100 text-blue-700',
+    'ON_HOLD': 'bg-yellow-100 text-yellow-700',
+  };
+  return colors[status] || 'bg-gray-100 text-gray-700';
+};
+
+// Kampanya ilerleme durumu
+export const getCampaignStats = (campaigns) => {
+  return {
+    total: campaigns.length,
+    active: campaigns.filter(c => c.status === 'ACTIVE').length,
+    completed: campaigns.filter(c => c.status === 'COMPLETED').length,
+    onHold: campaigns.filter(c => c.status === 'ON_HOLD').length,
+  };
 };
