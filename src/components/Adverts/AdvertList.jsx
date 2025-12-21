@@ -57,7 +57,7 @@ export default function AdvertList({ adverts, onEdit, onDelete, onGenerateBanner
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-gray-900">{advert.title}</span>
                     {(advert.banner_html || advert.banner_image_base64) && (
-                      <span className="text-green-600" title="Afiş mevcut">🖼️</span>
+                      <span className="text-green-600" title="Banner">🖼️</span>
                     )}
                   </div>
                 </td>
@@ -87,9 +87,9 @@ export default function AdvertList({ adverts, onEdit, onDelete, onGenerateBanner
                   <button
                     onClick={() => onGenerateBanner(advert)}
                     className="text-purple-600 hover:text-purple-900"
-                    title="Afiş Oluştur"
+                    title="Create Banner"
                   >
-                    🎨 Afiş
+                    🎨 Banner
                   </button>
                   <button
                     onClick={() => onEdit(advert)}

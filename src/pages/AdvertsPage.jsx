@@ -93,7 +93,7 @@ export default function AdvertsPage() {
 
       {bannerAdvert && (
         <FormModal
-          title={`🎨 Reklam Afişi Oluştur - ${bannerAdvert.title}`}
+          title={`🎨 Create Advert Banner - ${bannerAdvert.title}`}
           onClose={() => setBannerAdvert(null)}
         >
           <AdvertBannerGenerator

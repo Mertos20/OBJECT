@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function StaffList({ staff, onEdit, onDelete }) {
+export default function StaffList({ staff, onEdit, onDelete, onViewCampaigns }) {
   return (
     <div className="bg-white rounded-lg shadow overflow-hidden">
       <table className="min-w-full divide-y divide-gray-200">
@@ -67,6 +67,14 @@ export default function StaffList({ staff, onEdit, onDelete }) {
                   </span>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                  {onViewCampaigns && (
+                    <button
+                      onClick={() => onViewCampaigns(member.id)}
+                      className="text-purple-600 hover:text-purple-900"
+                    >
+                      Campaigns
+                    </button>
+                  )}
                   <button
                     onClick={() => onEdit(member)}
                     className="text-blue-600 hover:text-blue-900"

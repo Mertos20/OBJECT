@@ -8,11 +8,11 @@ export default function AdvertBannerGenerator({ advert, onClose, onSuccess }) {
   const [generatedBanner, setGeneratedBanner] = useState(null);
 
   const styles = [
-    { value: 'modern', label: 'Modern', desc: 'Çağdaş, gradient geçişli' },
-    { value: 'minimal', label: 'Minimal', desc: 'Sade, temiz tasarım' },
-    { value: 'bold', label: 'Bold', desc: 'Cesur, dikkat çekici' },
-    { value: 'elegant', label: 'Elegant', desc: 'Şık, sofistike' },
-    { value: 'colorful', label: 'Colorful', desc: 'Renkli, canlı' },
+    { value: 'modern', label: 'Modern', desc: 'Contemporary, gradient transitions' },
+    { value: 'minimal', label: 'Minimal', desc: 'Simple, clean design' },
+    { value: 'bold', label: 'Bold', desc: 'Bold, attention-grabbing' },
+    { value: 'elegant', label: 'Elegant', desc: 'Elegant, sophisticated' },
+    { value: 'colorful', label: 'Colorful', desc: 'Colorful, vibrant' },
   ];
 
   const handleGenerate = async () => {
@@ -25,11 +25,11 @@ export default function AdvertBannerGenerator({ advert, onClose, onSuccess }) {
         setGeneratedBanner(response.data.advert);
         if (onSuccess) onSuccess(response.data.advert);
       } else {
-        setError(response.data.message || 'Afiş oluşturulamadı');
+        setError(response.data.message || 'Failed to create banner');
       }
     } catch (err) {
       console.error('Banner generation error:', err);
-      setError(err.response?.data?.message || 'Afiş oluşturulurken hata oluştu');
+      setError(err.response?.data?.message || 'Error occurred while creating banner');
     } finally {
       setLoading(false);
     }
@@ -45,11 +45,11 @@ export default function AdvertBannerGenerator({ advert, onClose, onSuccess }) {
         setGeneratedBanner(response.data.advert);
         if (onSuccess) onSuccess(response.data.advert);
       } else {
-        setError(response.data.message || 'Afiş yeniden oluşturulamadı');
+        setError(response.data.message || 'Failed to regenerate banner');
       }
     } catch (err) {
       console.error('Banner regeneration error:', err);
-      setError(err.response?.data?.message || 'Afiş yeniden oluşturulurken hata oluştu');
+      setError(err.response?.data?.message || 'Error occurred while regenerating banner');
     } finally {
       setLoading(false);
     }
@@ -57,19 +57,19 @@ export default function AdvertBannerGenerator({ advert, onClose, onSuccess }) {
 
   return (
     <div className="p-6">
-      {/* Reklam Bilgileri */}
+      {/* Ad Information */}
       <div className="mb-6 p-4 bg-gray-50 rounded-lg">
         <h3 className="font-semibold text-gray-900">{advert.title}</h3>
-        <p className="text-sm text-gray-600">Kampanya: {advert.campaign_title || `#${advert.campaign}`}</p>
+        <p className="text-sm text-gray-600">Campaign: {advert.campaign_title || `#${advert.campaign}`}</p>
         {advert.description && (
           <p className="text-sm text-gray-500 mt-1">{advert.description}</p>
         )}
       </div>
 
-      {/* Stil Seçimi */}
+      {/* Select Style */}
       <div className="mb-6">
         <label className="block text-sm font-medium text-gray-700 mb-3">
-          Afiş Stili Seçin
+          Select Banner Style
         </label>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
           {styles.map((s) => (
@@ -89,14 +89,14 @@ export default function AdvertBannerGenerator({ advert, onClose, onSuccess }) {
         </div>
       </div>
 
-      {/* Hata Mesajı */}
+      {/* Error Message */}
       {error && (
         <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
           <p className="text-red-700">❌ {error}</p>
         </div>
       )}
 
-      {/* Butonlar */}
+      {/* Buttons */}
       <div className="flex gap-3 mb-6">
         <button
           onClick={handleGenerate}
@@ -109,10 +109,10 @@ export default function AdvertBannerGenerator({ advert, onClose, onSuccess }) {
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
-              Oluşturuluyor...
+              Creating...
             </span>
           ) : (
-            '🎨 Afiş Oluştur'
+            '🎨 Create Banner'
           )}
         </button>
 
@@ -122,16 +122,16 @@ export default function AdvertBannerGenerator({ advert, onClose, onSuccess }) {
             disabled={loading}
             className="bg-gray-600 text-white px-4 py-3 rounded-lg hover:bg-gray-700 transition disabled:opacity-50"
           >
-            🔄 Yeniden
+            🔄 Regenerate
           </button>
         )}
       </div>
 
-      {/* Oluşturulan Afiş Önizleme */}
+      {/* Generated Banner Preview */}
       {generatedBanner && (generatedBanner.banner_image_base64 || generatedBanner.banner_image_url || generatedBanner.banner_html) && (
         <div className="border rounded-lg overflow-hidden">
           <div className="bg-gray-100 px-4 py-2 border-b">
-            <h4 className="font-medium text-gray-700">📸 Oluşturulan Afiş</h4>
+            <h4 className="font-medium text-gray-700">📸 Generated Banner</h4>
           </div>
           <div className="p-4 bg-gray-50 flex justify-center">
             {generatedBanner.banner_image_base64 ? (
@@ -154,7 +154,7 @@ export default function AdvertBannerGenerator({ advert, onClose, onSuccess }) {
             ) : null}
           </div>
           
-          {/* İndirme Butonu */}
+          {/* Download Button */}
           {(generatedBanner.banner_image_base64 || generatedBanner.banner_html) && (
             <div className="p-4 border-t bg-white">
               {generatedBanner.banner_image_base64 ? (
@@ -163,11 +163,11 @@ export default function AdvertBannerGenerator({ advert, onClose, onSuccess }) {
                   download={`${advert.title.replace(/\s+/g, '_')}_banner.png`}
                   className="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
                 >
-                  💾 Afişi İndir
+                  💾 Download Banner
                 </a>
               ) : (
                 <span className="text-sm text-gray-500">
-                  ℹ️ HTML banner oluşturuldu (Imagen API kullanılamadı)
+                  ℹ️ HTML banner created (Imagen API unavailable)
                 </span>
               )}
             </div>
@@ -175,11 +175,11 @@ export default function AdvertBannerGenerator({ advert, onClose, onSuccess }) {
         </div>
       )}
 
-      {/* Mevcut Afiş Gösterimi */}
+      {/* Current Banner Display */}
       {!generatedBanner && (advert.banner_image_base64 || advert.banner_html) && (
         <div className="border rounded-lg overflow-hidden">
           <div className="bg-gray-100 px-4 py-2 border-b">
-            <h4 className="font-medium text-gray-700">📸 Mevcut Afiş</h4>
+            <h4 className="font-medium text-gray-700">📸 Current Banner</h4>
           </div>
           <div className="p-4 bg-gray-50 flex justify-center">
             {advert.banner_image_base64 ? (
@@ -198,13 +198,13 @@ export default function AdvertBannerGenerator({ advert, onClose, onSuccess }) {
         </div>
       )}
 
-      {/* Kapatma Butonu */}
+      {/* Close Button */}
       <div className="mt-6 pt-4 border-t">
         <button
           onClick={onClose}
           className="w-full py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition"
         >
-          Kapat
+          Close
         </button>
       </div>
     </div>

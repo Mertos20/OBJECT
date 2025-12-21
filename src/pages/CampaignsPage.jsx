@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { campaignAPI, clientAPI } from '../services/api';
 import CampaignForm from '../components/Campaigns/CampaignForm';
 import CampaignList from '../components/Campaigns/CampaignList';
@@ -30,6 +31,23 @@ function CampaignsPage() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  // If navigated here with state.editId, open edit modal for that campaign
+  const location = useLocation();
+  useEffect(() => {
+    const editId = location?.state?.editId;
+    if (editId) {
+      (async () => {
+        try {
+          const res = await campaignAPI.getById(editId);
+          setEditingCampaign(res.data);
+          setShowForm(true);
+        } catch (err) {
+          console.error('Error loading campaign for edit:', err);
+        }
+      })();
+    }
+  }, [location]);
 
   const handleAddCampaign = () => {
     setEditingCampaign(null);

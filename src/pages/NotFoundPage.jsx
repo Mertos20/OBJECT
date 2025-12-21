@@ -9,9 +9,9 @@ export default function NotFoundPage() {
       <div className="text-center">
         <div className="mb-8">
           <h1 className="text-9xl font-bold text-white mb-4">404</h1>
-          <p className="text-4xl font-bold text-indigo-200 mb-2">Sayfa Bulunamadı</p>
+          <p className="text-4xl font-bold text-indigo-200 mb-2">Page Not Found</p>
           <p className="text-xl text-indigo-100 mb-8">
-            Aradığınız sayfa mevcut değil veya taşınmış olabilir.
+            The page you are looking for may not be available or may have moved.
           </p>
         </div>
 
@@ -37,19 +37,19 @@ export default function NotFoundPage() {
               onClick={() => navigate('/')}
               className="w-full bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition duration-200"
             >
-              Dashboard'a Dön
+              Return to Dashboard
             </button>
             <button
               onClick={() => navigate(-1)}
               className="w-full bg-gray-200 text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 transition duration-200"
             >
-              Geri Dön
+              Back
             </button>
           </div>
         </div>
 
         <p className="text-indigo-200 mt-8 text-sm">
-          Sorun devam ederse lütfen sistem yöneticisine başvurun.
+          If the problem persists, please contact your system administrator.
         </p>
       </div>
     </div>
